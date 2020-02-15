@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    image: nginx:1
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/project:delegated
+      - ./docker/web/app.conf:/etc/nginx/conf.d/app.conf
+    links:
+      - app
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    build:
+      context: docker/app
+      args:
+        TIMEZONE: ${TIMEZONE}
+        DOCKER_USER: ${DOCKER_USER}
+    working_dir: /var/project
+    volumes:
+      - ./:/var/project:delegated
+  queue:
+    container_name: ${COMPOSE_PROJECT_NAME}_queue
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${QUEUE_ADMIN_NAME}
+      RABBITMQ_DEFAULT_PASS: ${QUEUE_ADMIN_PASSWORD}
+    ports:
+      - "8081:15672"

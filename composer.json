@@ -1,6 +1,6 @@
 {
     "name": "miisieq/php-rabbitmq",
-    "description": "",
+    "description": "Slim 4 with RabbitMQ PoC (Proof of Concept)",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -10,5 +10,8 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.0"
+    }
 }
