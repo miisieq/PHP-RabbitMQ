@@ -1,0 +1,14 @@
+{
+    "name": "miisieq/php-rabbitmq",
+    "description": "",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michał Szczech",
+            "email": "m.szczech@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
