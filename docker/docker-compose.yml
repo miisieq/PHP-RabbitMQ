@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    build:
+      context: .
+      args:
+        TIMEZONE: ${TIMEZONE}
+        DOCKER_USER: ${DOCKER_USER}
+    ports:
+      - "8080:9001"
+    working_dir: /var/project
+    volumes:
+      - ./../:/var/project:delegated
+      - ./supervisord.conf:/etc/supervisor/supervisord.conf
+  queue:
+    container_name: ${COMPOSE_PROJECT_NAME}_queue
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${QUEUE_USER}
+      RABBITMQ_DEFAULT_PASS: ${QUEUE_PASSWORD}
+    ports:
+      - "8081:15672"

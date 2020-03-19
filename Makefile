@@ -8,16 +8,20 @@ APP_CONTAINER := "app"
 .PHONY:
 
 build:
-	docker-compose build
+	docker-compose -f docker/docker-compose.yml build
 
 up:
-	docker-compose up -d
+	docker-compose -f docker/docker-compose.yml up -d
 
 stop:
-	docker-compose stop
+	docker-compose -f docker/docker-compose.yml stop
+
+restart:
+	@make stop
+	@make up
 
 enter:
-	-docker-compose exec $(APP_CONTAINER) bash
+	-docker-compose -f docker/docker-compose.yml exec --user=$(DOCKER_USER) $(APP_CONTAINER) bash
 
 install:
-	docker-compose exec $(APP_CONTAINER) composer install
+	docker-compose -f docker/docker-compose.yml exec--user=$(DOCKER_USER) $(APP_CONTAINER) composer install
